@@ -1,0 +1,60 @@
+Program LibraryApp
+
+BEGIN
+
+FUNCTION loginApp();
+	IF old_user THEN
+		DISPLAY login
+	ELSE
+		DISPLAY register
+	ENDIF
+ENDFUNCTION
+
+FUNCTION searchBook();
+	DISPLAY all_books
+	WRITE book_keyword with string
+	READ book_keyword
+	IF book_keyword == true THEN
+		DISPLAY book_keyword
+	ELSE
+		RETURN all_books
+	ENDIF
+ENDFUNCTION
+
+FUNCTION addDataDiri();
+	WHILE 
+		READ data_diri == TRUE
+	DO{
+		WRITE data_diri with string AND
+		ADD KTP AND
+		ADD KTM
+	}
+ENDFUNCTION
+
+FUNCTION pinjamBuku();
+	searchBook();
+	book_keyword = borrow_book
+	READ borrow_book
+	IF borrow_book == available THEN
+		READ data_diri == TRUE
+		addDataDiri();
+	ELSE
+		RETURN searchBook();
+	ENDIF
+ENDFUNCTION
+
+FUNCTION pengembalianBuku();
+	pinjamBuku() == TRUE;
+	PRINT info_return_date
+	READ today_date
+	IF info_return_date == today_date THEN
+		PRINT "borrow_book must returned"
+	ELSE
+		IF borrow_book == returned THEN
+			PRINT "borrow_book successfully returned"
+		ELSE
+			PRINT "pay a fine"
+	ENDIF
+ENDFUNCTION
+
+END
